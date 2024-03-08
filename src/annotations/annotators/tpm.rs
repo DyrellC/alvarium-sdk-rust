@@ -30,7 +30,7 @@ impl TpmAnnotator {
     }
 
     #[cfg(windows)]
-    fn check_tpm_presence_windows() -> bool {
+    fn check_tpm_presence_windows(&self) -> bool {
         let output = std::process::Command::new("tpmtool")
             .arg("getdeviceinformation")
             .output();

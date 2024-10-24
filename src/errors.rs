@@ -129,6 +129,7 @@ impl From<streams::LetsError> for Error {
     }
 }
 
+#[cfg(feature = "stronghold")]
 impl From<iota_sdk::client::stronghold::Error> for Error {
     fn from(e: iota_sdk::client::stronghold::Error) -> Self {
         Error::StrongholdError(e.to_string())

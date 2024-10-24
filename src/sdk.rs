@@ -93,6 +93,7 @@ impl<'a, Pub: Publisher<StreamConfig = StreamInfo, Error = crate::errors::Error>
     }
 
     pub async fn publish(&mut self, data: &[u8]) -> Result<()> {
+        println!("Publishing data....");
         let mut ann_list = AnnotationList::default();
         for annotator in self.annotators.iter_mut() {
             ann_list.items.push(annotator.execute(data)?);

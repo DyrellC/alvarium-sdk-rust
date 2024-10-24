@@ -26,9 +26,9 @@
         "port": 8080
       },
       "tangle": {
-        "host": "nodes.02.demia-testing-domain.com",
+        "host": "ec2-54-173-103-36.compute-1.amazonaws.com",
         "protocol": "http",
-        "port": 14102
+        "port": 14267
       },
       "encoding": "utf-8",
       "topic": "Publisher Unique Topic",

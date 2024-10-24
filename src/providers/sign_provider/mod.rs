@@ -1,10 +1,16 @@
 mod ed25519;
+#[cfg(feature = "stronghold")]
+mod stronghold;
 
 use crate::errors::Result;
 pub use ed25519::*;
+#[cfg(feature = "stronghold")]
+pub use stronghold::*;
 
 pub enum SignatureProviderWrap {
     Ed25519(Ed25519Provider),
+    #[cfg(feature = "stronghold")]
+    Stronghold(StrongholdProvider)
 }
 
 impl alvarium_annotator::SignProvider for SignatureProviderWrap {
@@ -12,12 +18,16 @@ impl alvarium_annotator::SignProvider for SignatureProviderWrap {
     fn sign(&self, content: &[u8]) -> Result<String> {
         match self {
             SignatureProviderWrap::Ed25519(provider) => Ok(provider.sign(content)?),
+            #[cfg(feature = "stronghold")]
+            SignatureProviderWrap::Stronghold(provider) => Ok(provider.sign(content)?)
         }
     }
 
     fn verify(&self, content: &[u8], signed: &[u8]) -> Result<bool> {
         match self {
             SignatureProviderWrap::Ed25519(provider) => Ok(provider.verify(content, signed)?),
+            #[cfg(feature = "stronghold")]
+            SignatureProviderWrap::Stronghold(provider) => Ok(provider.verify(content, signed)?),
         }
     }
 }

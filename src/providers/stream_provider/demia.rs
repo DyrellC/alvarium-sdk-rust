@@ -151,9 +151,10 @@ impl Publisher for DemiaPublisher {
     }
 
     async fn publish(&mut self, msg: MessageWrapper<'_>) -> Result<()> {
-        debug!("Publishing message: {:?}", msg);
+        info!("Publishing message: {:?}", msg);
         let bytes = serde_json::to_vec(&msg)?;
 
+        info!("User: {:?}", self.user);
         let packet = self
             .user
             .message()

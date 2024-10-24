@@ -65,6 +65,11 @@ impl Signable {
                 let sig_bytes = hex::decode(&self.signature)?;
                 Ok(provider.verify(self.seed.as_bytes(), &sig_bytes)?)
             }
+            #[cfg(feature = "stronghold")]
+            SignatureProviderWrap::Stronghold(provider) => {
+                let sig_bytes = hex::decode(&self.signature)?;
+                Ok(provider.verify(self.seed.as_bytes(), &sig_bytes)?)
+            }
         }
     }
 

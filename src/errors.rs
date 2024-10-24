@@ -65,6 +65,14 @@ pub enum Error {
 
     #[error("Backup failed: {0}")]
     BackupFailed(std::io::Error),
+
+    #[cfg(feature = "stronghold")]
+    #[error("Stronghold error: {0}")]
+    StrongholdError(String),
+
+    #[cfg(feature = "stronghold")]
+    #[error("Failed to make stronghold adapter")]
+    StrongholdAdapterError,
 }
 
 impl From<serde_json::Error> for Error {
@@ -118,5 +126,11 @@ impl From<reqwest::Error> for Error {
 impl From<streams::LetsError> for Error {
     fn from(e: streams::LetsError) -> Self {
         Error::StreamsLetsError(e)
+    }
+}
+
+impl From<iota_sdk::client::stronghold::Error> for Error {
+    fn from(e: iota_sdk::client::stronghold::Error) -> Self {
+        Error::StrongholdError(e.to_string())
     }
 }

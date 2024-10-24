@@ -14,4 +14,8 @@ pub struct KeyInfo {
     #[serde(rename = "type")]
     pub key_type: KeyAlgorithm,
     pub path: String,
+    #[serde(rename = "password")]
+    pub stronghold_password: String,
+    #[serde(rename = "signatureKeyPath")]
+    pub signature_key_path: String,
 }
